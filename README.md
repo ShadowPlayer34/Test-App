@@ -59,8 +59,8 @@ The **Conference Viewer** app allows users to view details about upcoming confer
 
 ## Screenshots
 
-![Simulator Screenshot - iPhone 16 Pro - 2025-03-07 at 14 54 16](https://github.com/user-attachments/assets/0d3526a5-eac5-40e2-9f5f-3bbd3a7dec16)
-![Simulator Screenshot - iPhone 16 Pro - 2025-03-07 at 14 54 18](https://github.com/user-attachments/assets/6ac34cca-74ce-4fc6-8371-42d9c0f3f4b5)
+<img src="https://github.com/user-attachments/assets/0d3526a5-eac5-40e2-9f5f-3bbd3a7dec16" width="300">
+<img src="https://github.com/user-attachments/assets/6ac34cca-74ce-4fc6-8371-42d9c0f3f4b5" width="300">
 
 
 ## Customization
