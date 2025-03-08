@@ -10,6 +10,9 @@ import SwiftUI
 /// A view that displays the details of an event.
 struct EventDetailsView {
     @StateObject private var viewModel = EventDetailsViewModel()
+
+    @State private var isShowError: Bool = false
+
     @Environment(\.dismiss) private var dismiss
 }
 
@@ -24,8 +27,6 @@ extension EventDetailsView: View {
                     conferenceDetails(conference)
                     registrationButton()
                     aboutSection(conference)
-                } else {
-                    ProgressView()
                 }
             }
             .navigationBarBackButtonHidden(true)
@@ -43,6 +44,13 @@ extension EventDetailsView: View {
             .task {
                 await viewModel.fetchConferenceInformation()
             }
+        }
+        .withLoaderOverView(isLoading: viewModel.isLoading)
+        .onChange(of: viewModel.errorMessage) { newValue in
+            isShowError = newValue != nil
+        }
+        .alert("Упс, что-то пошло не так", isPresented: $isShowError, actions: { }) {
+            Text(viewModel.errorMessage ?? "")
         }
     }
 

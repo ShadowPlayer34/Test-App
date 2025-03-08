@@ -10,7 +10,9 @@ import SwiftUI
 /// A view that displays a list of conferences.
 struct ConferencesListView {
     @StateObject private var viewModel = ConferencesListViewModel()
+
     @State private var proccedToDetail: Bool = false
+    @State private var isShowError: Bool = false
 }
 
 extension ConferencesListView: View {
@@ -32,11 +34,18 @@ extension ConferencesListView: View {
                     .headerProminence(.increased)
                 }
             }
+            .withLoaderOverView(isLoading: viewModel.isLoading)
+            .onChange(of: viewModel.errorMessage) { newValue in
+                isShowError = newValue != nil
+            }
             .listStyle(.plain)
             .navigationTitle(Text("Конференции"))
             .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(isPresented: $proccedToDetail) {
                 EventDetailsView()
+            }
+            .alert("Упс, что-то пошло не так", isPresented: $isShowError, actions: { }) {
+                Text(viewModel.errorMessage ?? "")
             }
         }
         .task {

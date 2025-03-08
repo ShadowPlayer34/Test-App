@@ -17,7 +17,11 @@ class EventDetailsViewModel: ObservableObject {
     /// An error message that describes any issues encountered while fetching data.
     @Published var errorMessage: String?
 
+    /// A formatted text representation of the duration.
     @Published var durationText: String = ""
+
+    /// A flag indicating whether data is currently loading.
+    @Published var isLoading: Bool = true
 
     private let apiService = APIService()
 
@@ -29,13 +33,17 @@ class EventDetailsViewModel: ObservableObject {
     /// This method handles both specific API errors and general errors.
     func fetchConferenceInformation() async {
         do {
+            isLoading = true
             conference = try await apiService.fetchConferenceInformation()
             durationText = daysBetweenDates(conference?.startDate ?? "", conference?.endDate ?? "")
             errorMessage = nil
+            isLoading = false
         } catch let error as APIError {
             errorMessage = error.localizedDescription
+            isLoading = false
         } catch {
             errorMessage = "Что-то пошло не так."
+            isLoading = false
         }
     }
 

@@ -21,8 +21,10 @@ class ConferencesListViewModel: ObservableObject {
     /// An error message that describes any issues encountered while fetching data.
     @Published var errorMessage: String?
 
-    private var cachedGroupedConferences: [String: [Conference]]?
+    /// A flag indicating whether data is currently loading.
+    @Published var isLoading: Bool = true
 
+    private var cachedGroupedConferences: [String: [Conference]]?
     private let apiService = APIService()
 
     /// Fetches the list of conferences asynchronously.
@@ -33,12 +35,16 @@ class ConferencesListViewModel: ObservableObject {
     /// This method handles both specific API errors and general errors.
     func fetchConferences() async {
         do {
+            isLoading = true
             conferences = try await apiService.fetchConferencesList()
             errorMessage = nil
+            isLoading = false
         } catch let error as APIError {
             errorMessage = error.localizedDescription
+            isLoading = false
         } catch {
             errorMessage = "Что-то пошло не так."
+            isLoading = false
         }
     }
 
