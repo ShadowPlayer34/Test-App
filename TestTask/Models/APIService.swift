@@ -67,10 +67,10 @@ enum APIError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
-        case .badURL: return "Invalid URL."
-        case .requestFailed: return "Network request failed."
-        case .decodingFailed: return "Failed to decode response."
-        case .unknown: return "An unknown error occurred."
+        case .badURL: return "Некорректный URL."
+        case .requestFailed: return "Ошибка сети."
+        case .decodingFailed: return "Не удалось обработать ответ."
+        case .unknown: return "Произошла неизвестная ошибка."
         }
     }
 }
